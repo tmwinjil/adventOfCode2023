@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import Utils.AdventUtils;
+
 public class CubeConundrum {
     private static final String TEST_INPUT = "day2/testInput.txt";
     private static final String INPUT = "day2/input.txt";
@@ -62,33 +64,25 @@ public class CubeConundrum {
     public Collection<Integer> findPowersOfMapIndices() {
         assert !gamesMap.isEmpty();
         Collection<Integer> productList = gamesMap.values().stream()
-                .mapToInt(game -> findProductOfCollection(game.values())).boxed().toList();
+                .mapToInt(game -> AdventUtils.findProductOfCollection(game.values())).boxed().toList();
         assert productList.size() == gamesMap.keySet().size();
         System.out.println("Found products: " + productList);
         return productList;
-    }
-
-    public static int findProductOfCollection(Collection<Integer> collection) {
-        return collection.stream().mapToInt(x->x).reduce(1, Math::multiplyExact);
-    }
-
-    public static int findSumOfCollection(Collection<Integer> collection) {
-        return collection.stream().mapToInt(Integer::intValue).sum();
     }
 
     public static void main(String[] args) {
         CubeConundrum cubeConundrumTest = new CubeConundrum(TEST_INPUT);
         System.out.println(TEST_INPUT + ":");
         Collection<Integer> answerTest1 = cubeConundrumTest.getApplicableGamesForRGBCombo(12,13,14);
-        System.out.println("Sum of indices for test input = " + findSumOfCollection(answerTest1));
+        System.out.println("Sum of indices for test input = " + AdventUtils.findSumOfCollection(answerTest1));
         Collection<Integer> answerTest2 = cubeConundrumTest.findPowersOfMapIndices();
-        System.out.println("Sum of powers for test input= " + findSumOfCollection(answerTest2));
+        System.out.println("Sum of powers for test input= " + AdventUtils.findSumOfCollection(answerTest2));
 
         System.out.println(INPUT + ":");
         CubeConundrum cubeConundrum = new CubeConundrum(INPUT);
         Collection<Integer> answer1 = cubeConundrum.getApplicableGamesForRGBCombo(12,13,14);
-        System.out.println("Sum of answer1 = " + findSumOfCollection(answer1));
+        System.out.println("Sum of answer1 = " + AdventUtils.findSumOfCollection(answer1));
         Collection<Integer> answer2 = cubeConundrum.findPowersOfMapIndices();
-        System.out.println("Sum of powers = " + findSumOfCollection(answer2));
+        System.out.println("Sum of powers = " + AdventUtils.findSumOfCollection(answer2));
     }
 }
