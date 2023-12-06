@@ -1,7 +1,5 @@
 package day2;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import Utils.AdventUtils;
@@ -12,14 +10,7 @@ public class CubeConundrum {
     private final Map<Integer, Map<String, Integer>> gamesMap = new HashMap<>();
 
     public CubeConundrum(String filename) {
-        File testInput = new File(filename);
-        try (Scanner in = new Scanner(testInput)) {
-            while (in.hasNextLine()) {
-                parseLineAndPopulateGamesMap(in.nextLine());
-            }
-        } catch (IOException e) {
-            System.out.println("testInput.txt could not be found. Please ensure this file exists");
-        }
+        AdventUtils.parseFileInput(filename, this::parseLineAndPopulateGamesMap);
     }
 
     private void parseLineAndPopulateGamesMap(String line) {

@@ -1,8 +1,6 @@
 package day3;
 
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -12,28 +10,22 @@ public class EngineSchematic {
     private static final String TEST_INPUT_1 = "day3/testInput1.txt";
     private static final String INPUT_1 = "day3/input1.txt";
 
-    private int maxLength;
+    private int maxLength = -1;
 
     private final List<List<Character>> engineSchematicArray = new ArrayList<>();
     private final Map<Point, EngineItem> itemMap = new HashMap<>();
     private final Map<Point, Character> symbolPositionMap = new HashMap<>();
 
     public EngineSchematic(String filename) {
-        File testInput = new File(filename);
-        try (Scanner in = new Scanner(testInput)) {
-            while (in.hasNextLine()) {
-                String line = in.nextLine();
-                if (maxLength == -1) {
-                    maxLength = line.length();
-                }
-                assert line.length() == maxLength: "lines of the schematic cannot be different lengths";
-                populateSchematic(line);
-            }
-        } catch (IOException e) {
-            System.out.println("testInput.txt could not be found. Please ensure this file exists");
-        }
+        AdventUtils.parseFileInput(filename, this::populateSchematic);
     }
+
     public void populateSchematic(String line) {
+        if (maxLength == -1) {
+            maxLength = line.length();
+        }
+        assert line.length() == maxLength;
+
         engineSchematicArray.add(line.chars().mapToObj(c -> (char)c).toList());
         List<Character> row = engineSchematicArray.getLast();
         int y = engineSchematicArray.size() -1;
