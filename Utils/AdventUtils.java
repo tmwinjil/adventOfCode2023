@@ -34,7 +34,7 @@ public final class AdventUtils {
                 lineParser.accept(line);
             }
         } catch (IOException e) {
-            System.out.println("testInput.txt could not be found. Please ensure this file exists");
+            System.out.println(filename + "could not be found. Please ensure this file exists");
         }
     }
 }
